@@ -10,6 +10,7 @@ Covered Topics:
 */
 
 // Variables: Used to store data in JavaScript.
+// - var, let, const are declaration keywords
 // - var: Function-scoped, can be redeclared (not recommended)
 // - let: Block-scoped, can be reassigned
 // - const: Block-scoped, **cannot** be reassigned

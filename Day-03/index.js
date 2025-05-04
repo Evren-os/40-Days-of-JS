@@ -40,7 +40,7 @@ console.log(b - a); // 10
 console.log(a * b); // 200
 console.log(a / b); // 0.5
 console.log(a ** b); // Exponential operator
-console.log(a % b); // Remainder
+console.log(a % b); // Remainder / Modulus
 
 let count = 5;
 console.log(count++); // Post-increment: returns count then increments it (count becomes 6)
@@ -82,8 +82,16 @@ console.log(undefined == undefined); // true
 let obj1 = { name: "evrenos" };
 let obj2 = { name: "evrenos" };
 
-console.log(obj1 === obj2); // false (different object references)
+console.log(obj1 === obj2); // false
 console.log(obj1 !== obj2); // true
+
+/*
+  Objects in JavaScript are compared by reference.
+  Even though obj1 and obj2 have identical properties and values,
+  they live at different memory locations.
+  === checks “do these references point to the same object?”
+  Since they don’t, obj1 === obj2 is false (and obj1 !== obj2 is true).
+*/
 
 // Other comparison operators: >, <, <=, >=
 
@@ -92,36 +100,97 @@ console.log("**** Logical Operators ****");
 
 // Logical AND (&&), Logical OR (||), Nullish Coalescing (??), Logical NOT (!)
 
-// For &&: returns the first falsy operand; if none, returns the last operand.
-console.log(false && false); // false
-console.log(true && false); // false
-console.log(true && true); // true
-console.log(false && true); // false
-console.log("Cow" && "Horse"); // "Horse"
-console.log(4 > 5 && 4 === 6); // false
+/* Logical AND (&&) operator in JavaScript:
 
-// For ||: returns the first truthy operand; if none, returns the last operand.
+1. Evaluate the left operand:
+   • If it is falsy (false, 0, "", null, undefined, or NaN), return it immediately.
+   • Otherwise, evaluate and return the right operand.
+
+2. So for booleans:
+   • true &&  true → true   (both truthy, so returns the second: true)
+   • true &&  false → false (first is truthy, returns second: false)
+   • false && true  → false (first is falsy, returns first: false)
+   • false && false → false (first is falsy, returns first: false)
+
+3. And for other values:
+   • "Cow" && "Horse" → "Horse" (first is truthy, returns second)
+   • ""    && "Horse" → ""      (empty string is falsy, returns first)
+*/
+// Examples:
+console.log(false && false); // false  (first is falsy → returns false)
+console.log(true && false); // false  (first is truthy → returns second: false)
+console.log(true && true); // true   (first truthy → returns second: true)
+console.log(false && true); // false  (first is falsy → returns false)
+console.log("Cow" && "Horse"); // "Horse" (first truthy → returns second)
+console.log(4 > 5 && 4 === 6); // false   (first is false → returns false)
+
+/* Logical OR (||) operator in JavaScript:
+
+1. Evaluate the left operand:
+   • If it is truthy (anything except false, 0, "", null, undefined, NaN), return it immediately.
+   • Otherwise (it’s falsy), evaluate and return the right operand.
+
+2. So for booleans:
+   • true  ||  true  → true   (first is truthy → returns first)
+   • true  || false  → true   (first is truthy → returns first)
+   • false || true   → true   (first is falsy → returns second: true)
+   • false || false  → false  (first is falsy → returns second: false)
+
+3. And for other values:
+   • "Cow" || "Horse" → "Cow"  (first is truthy → returns first)
+   • ""     || "Horse" → "Horse" (empty string is falsy → returns second)
+*/
+// Examples:
 console.log(false || false); // false
 console.log(true || false); // true
 console.log(true || true); // true
 console.log(false || true); // true
-console.log("Cow" || "Horse"); // "Cow" (since "Cow" is truthy)
+console.log("Cow" || "Horse"); // "Cow"
 
-console.log(!true); // false
-console.log(!false); // true
+/* Logical NOT (!) operator in JavaScript:
 
-// Nullish Coalescing Operator (??):
-// Returns the right-hand operand if the left-hand operand is null or undefined.
-let a1 = null ?? 1; // 1
-let a2 = undefined ?? 3; // 3
-const a3 = false ?? "tapaScript"; // false (because false is not null/undefined)
-const a4 = 0 ?? "tapas"; // 0
+1. Coerces its operand to a boolean value, then returns the opposite boolean.
+   • ! truthyValue   → false
+   • ! falsyValue    → true
+
+2. Common use:
+   • Double negation (the !! trick) is simply applying the logical NOT operator twice (!(!x)) to coerce any value into a true Boolean (true or false)
+   • Double negation (!!value) to coerce any value to a true boolean.
+*/
+// Examples:
+console.log(!true); // false  (true → false)
+console.log(!false); // true   (false → true)
+console.log(!0); // true   (0 is falsy → true)
+console.log(!!"Cow"); // true   (coerces "Cow" to boolean true)
+
+/* Nullish Coalescing (??) operator in JavaScript:
+
+1. Evaluate the left operand:
+   • If it is neither null nor undefined, return it.
+   • Otherwise (it is null or undefined), return the right operand.
+
+2. Differs from || by only checking for null/undefined, not all falsy values.
+*/
+// Examples:
+let a1 = null ?? 1; // 1     (left is null → returns right)
+let a2 = undefined ?? 3; // 3     (left is undefined → returns right)
+const a3 = false ?? "JavaScript"; // false (false is not null/undefined)
+const a4 = 0 ?? "foo"; // 0     (0 is not null/undefined)
 
 // ----- Conditional (Ternary) Operator -----
 console.log("Conditional (ternary) operator");
 
 let age = 23;
 console.log(age >= 60 ? "Senior Citizen" : "Young Citizen");
+
+/* Conditional (ternary) operator syntax:
+  condition ? valueIfTrue : valueIfFalse
+
+- Evaluates `condition` (any expression).
+- If truthy, returns `valueIfTrue`; otherwise returns `valueIfFalse`.
+- It’s an expression (returns a value), not a statement.
+- Use parentheses around complex expressions for readability.
+*/
 
 // ----- Bitwise Operators -----
 console.log("**** Bitwise Operators ****");

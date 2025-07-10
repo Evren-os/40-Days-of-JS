@@ -16,3 +16,4 @@ Covered Topics:
 */
 
 console.log("Hello from Node.js");
+document.querySelector(".someID").innerHTML = "Hello";
